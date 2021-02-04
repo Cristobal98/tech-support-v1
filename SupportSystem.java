@@ -1,3 +1,4 @@
+import java.util.Random;
 /**
  * This class implements a technical support system. It is the top
  * level class in this project. The support system communicates via
@@ -15,14 +16,14 @@ public class SupportSystem
 {
     private InputReader reader;
     private Responder responder;
-    
+        
     /**
      * Creates a technical support system.
      */
     public SupportSystem()
     {
         reader = new InputReader();
-        responder = new Responder();
+        responder = new Responder();                
     }
 
     /**
