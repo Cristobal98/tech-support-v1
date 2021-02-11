@@ -1,5 +1,6 @@
 import java.util.Random;
 import java.util.ArrayList;
+import java.util.HashMap;
 /**
  * The responder class represents a response generator object.
  * It is used to generate an automatic response to an input string.
@@ -11,7 +12,8 @@ public class Responder
 {
     private Random aleatorio;
     private ArrayList<String> cadena;
-    
+    private HashMap <String, String> respuestas;
+     
     /**
      * Construct a Responder - nothing to do
      */
@@ -19,21 +21,38 @@ public class Responder
     {
         aleatorio = new Random();
         cadena = new ArrayList<String>();
+        respuestas = new HashMap<>();
         cadena.add("¿Que tal te ha ido el dia?");
         cadena.add("Es interesante");
         cadena.add("Gracias!!");
         cadena.add("A mi tambien me gusta eso.");
         cadena.add("Eres muy agradable");
+        respuestas.put("bien", "Me alegro, a mi tambien me ha ido bien");
+        respuestas.put("triste", "¿Por que estas triste?");
+        respuestas.put("problema", "Cuentamelo, quiza puedo ayudarte");
+        respuestas.put("placer", "El placer es mio");
     }
 
     /**
      * Generate a response.
      * @return   A string that should be displayed as the response
      */
-    public String generateResponse()
+    public String generateResponse(String userInput)
     {
-        int aleat = aleatorio.nextInt(cadena.size());
-        String resultado = cadena.get(aleat);
+        String resultado = "";
+        Boolean existe = false;
+        for (String respuesta : respuestas.keySet())
+            if (respuesta.equals(userInput))
+            {
+                existe = true;
+                resultado = respuestas.get(respuesta);
+            }
+            
+        if (existe == false){
+            int aleat = aleatorio.nextInt(cadena.size());
+            resultado = cadena.get(aleat);
+        }
+            
         return resultado;
     }
 }
