@@ -40,19 +40,11 @@ public class Responder
     public String generateResponse(String userInput)
     {
         String resultado = "";
-        Boolean existe = false;
-        for (String respuesta : respuestas.keySet())
-            if (respuesta.equals(userInput))
-            {
-                existe = true;
-                resultado = respuestas.get(respuesta);
-            }
-            
-        if (existe == false){
+        resultado = respuestas.get(userInput);
+        if (resultado == null){
             int aleat = aleatorio.nextInt(cadena.size());
             resultado = cadena.get(aleat);
         }
-            
         return resultado;
     }
 }
