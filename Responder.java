@@ -38,14 +38,16 @@ public class Responder
         cadena.add("A mi tambien me gusta eso.");
         cadena.add("Eres muy agradable");
         respuesta1.add("estoy");
+        respuesta1.add("muy");
         respuesta1.add("bien");
-        respuesta2.add("me");
-        respuesta2.add("encuentro");
+        respuesta2.add("yo");
+        respuesta2.add("estoy");
         respuesta2.add("triste");
         respuesta3.add("tengo");
         respuesta3.add("un");
         respuesta3.add("problema");
         respuesta4.add("eres");
+        respuesta4.add("muy");
         respuesta4.add("agradable");
         respuestas.put(respuesta1, "Me alegro, a mi tambien me ha ido bien");
         respuestas.put(respuesta2, "¿Por que estas triste?");
@@ -60,7 +62,20 @@ public class Responder
     public String generateResponse(HashSet<String> userInput)
     {
         String resultado = null;
-        resultado = respuestas.get(userInput);
+        int maximo = 0;  
+        for (HashSet<String> res : respuestas.keySet()){
+            int contador = 0;
+            for (String resp : res){
+                if (userInput.contains(resp) == true){
+                    contador ++;
+                    if (contador > maximo) {
+                        maximo = contador;
+                        resultado = respuestas.get(res);
+                    }
+                }
+            }
+        }
+        
         if (resultado == null){
             int aleat = aleatorio.nextInt(cadena.size());
             resultado = cadena.get(aleat);
