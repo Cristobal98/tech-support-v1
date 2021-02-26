@@ -19,12 +19,14 @@ public class Responder
     private HashSet <String> respuesta2;
     private HashSet <String> respuesta3;
     private HashSet <String> respuesta4;
+    private String repetida;
      
     /**
      * Construct a Responder - nothing to do
      */
     public Responder()
     {
+        repetida = "";
         aleatorio = new Random();
         cadena = new ArrayList<String>();
         respuestas = new HashMap<>();
@@ -61,8 +63,8 @@ public class Responder
      */
     public String generateResponse(HashSet<String> userInput)
     {
+        int maximo = 0;
         String resultado = null;
-        int maximo = 0;  
         for (HashSet<String> res : respuestas.keySet()){
             int contador = 0;
             for (String resp : res){
@@ -71,6 +73,10 @@ public class Responder
                     if (contador > maximo) {
                         maximo = contador;
                         resultado = respuestas.get(res);
+                        if (repetida.equals(resultado)){
+                            int aleat = aleatorio.nextInt(cadena.size());
+                            resultado = cadena.get(aleat);
+                        }
                     }
                 }
             }
@@ -79,7 +85,13 @@ public class Responder
         if (resultado == null){
             int aleat = aleatorio.nextInt(cadena.size());
             resultado = cadena.get(aleat);
+            while (repetida.equals(resultado)){
+                aleat = aleatorio.nextInt(aleat);
+                resultado = cadena.get(aleat);
+            }
         }
+
+        repetida = resultado;
         return resultado;
     }
 }
